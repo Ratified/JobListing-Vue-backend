@@ -1,14 +1,14 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema, Types } from 'mongoose';
 
-// Define the company interface
-interface Company {
+// Define the company interface extending Mongoose's Subdocument
+interface Company extends Types.Subdocument {
   name: string;
   description: string;
   contactEmail: string;
   contactPhone: string;
 }
 
-// Define the job interface
+// Define the job interface extending Mongoose's Document
 export interface Job extends Document {
   title: string;
   type: string;
@@ -19,7 +19,7 @@ export interface Job extends Document {
 }
 
 // Defines the company schema
-const companySchema: Schema<Company> = new Schema({
+const companySchema = new Schema<Company>({
   name: { type: String, required: true },
   description: { type: String, required: true },
   contactEmail: { type: String, required: true },
@@ -27,7 +27,7 @@ const companySchema: Schema<Company> = new Schema({
 });
 
 // Defines the job schema
-const jobSchema: Schema<Job> = new Schema({
+const jobSchema = new Schema<Job>({
   title: { type: String, required: true },
   type: { type: String, required: true },
   location: { type: String, required: true },
